@@ -52,16 +52,6 @@ A comprehensive scaffolding tool for creating GenAI (Generative AI) projects. Se
 
 ## Installation
 
-### Quick Install
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/genai-scaffold.git
-cd genai-scaffold
-
-# Run the installation script
-./install.sh
-```
-
 ### Manual Installation
 ```bash
 # Make the script executable
@@ -228,13 +218,6 @@ docker build -t my_project:latest .
 
 # Run container
 docker run -p 8000:8000 my_project:latest
-```
-
-## Uninstallation
-
-```bash
-# Run the uninstallation script
-./uninstall.sh
 ```
 
 ## License
