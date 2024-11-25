@@ -9,7 +9,7 @@ A comprehensive scaffolding tool for creating GenAI (Generative AI) projects. Se
   - LlamaIndex integration
   - LangChain setup
   - Ollama integration
-  - Arize Phoenix integration
+  - Arize Phoenix integration (To be added)
 
 ### 📁 Project Structure
 - Standardized directory layout
@@ -35,9 +35,9 @@ A comprehensive scaffolding tool for creating GenAI (Generative AI) projects. Se
 ### 🔄 MLOps Integration
 - **Data Version Control (DVC)**
   - Experiment tracking
-  - Pipeline definitions
+  - Pipeline definitions (To be added)
   - Remote storage configuration (S3, GCS, Azure)
-  - Metric tracking and comparison
+  - Metric tracking and comparison (To be added)
 
 - **Docker Support**
   - Development containers
@@ -46,69 +46,65 @@ A comprehensive scaffolding tool for creating GenAI (Generative AI) projects. Se
 
 ### 🧪 Testing & Quality Assurance
 - pytest setup
-- Coverage reporting
+- Coverage reporting (To be added)
 - Test data management
 - CI/CD configurations
 
 ## Installation
 
-### Manual Installation
+Clone the repository and make the script executable:
 ```bash
-# Make the script executable
+git clone <repository-url>
+cd genai-scaffolding
 chmod +x create_genai_project.sh
-
-# Optional: Add to your PATH
-export PATH="$PATH:/path/to/genai-scaffold"
 ```
 
 ## Usage
 
 ### Basic Usage
 ```bash
-# Create a new project with default settings
-create-genai-project -n my_project
+# Create a basic project
+bash create_genai_project.sh -n my_project
 
-# Create a project with Docker support
-create-genai-project -n my_project -d
-
-# Create a project with Ollama integration
-create-genai-project -n my_project -o -m llama2
+# Create a project with Docker and Ollama support
+bash create_genai_project.sh -n my_project -d -o -m llama2
 ```
 
 ### Advanced Usage
 ```bash
 # Create a full-featured project
-create-genai-project -n my_project \
-    -t advanced \            # Advanced template
-    -d \                    # Include Docker
-    -p 3.11 \              # Python version
-    -s \                    # Include Sphinx docs
-    -g \                    # GitHub Actions
-    -l \                    # GitLab CI
-    -c \                    # Use conda
-    -f langchain \         # LLM framework
-    -o \                    # Include Ollama
-    -m llama2 \            # Ollama model
-    -v \                    # Include DVC
-    -r s3                  # DVC remote type
+bash create_genai_project.sh -n my_project \
+    -t advanced \          # Advanced template
+    -d \                  # Include Docker
+    -p 3.11 \            # Python version
+    -s \                  # Include Sphinx docs
+    -g \                  # GitHub Actions
+    -l \                  # GitLab CI
+    -f langchain \       # LLM framework
+    -o \                  # Include Ollama
+    -m llama2 \          # Ollama model
+    -v \                  # Include DVC
+    -r s3                # DVC remote type
 ```
 
 ### Command Line Options
 ```
-Options:
-  -n: Project name (required)
-  -t: Template type (basic or advanced, default: basic)
-  -d: Include Docker setup
-  -p: Python version (default: 3.11)
-  -s: Include Sphinx documentation
-  -g: Include GitHub Actions
-  -l: Include GitLab CI
-  -c: Use conda environment
-  -f: LLM framework (llamaindex, langchain, or both)
-  -o: Include Ollama support
-  -m: Ollama model (default: llama2)
-  -v: Include DVC support
-  -r: DVC remote type (s3, gcs, azure, local)
+Required:
+    -n    Project name
+
+Optional:
+    -t    Template type (basic or advanced, default: basic)
+    -d    Include Docker setup
+    -p    Python version (default: 3.11)
+    -s    Include Sphinx documentation
+    -g    Include GitHub Actions
+    -l    Include GitLab CI
+    -c    Use conda environment
+    -f    LLM framework (llamaindex, langchain, or both)
+    -o    Include Ollama support
+    -m    Ollama model (default: llama2)
+    -v    Include DVC support
+    -r    DVC remote type (s3, gcs, azure, local)
 ```
 
 ## Project Structure
@@ -126,6 +122,7 @@ my_project/
 ├── scripts/              # Utility scripts
 ├── configs/              # Configuration files
 ├── notebooks/           # Jupyter notebooks
+├── models/              # Model files and configurations
 ├── .github/             # GitHub Actions (optional)
 ├── .gitlab-ci.yml       # GitLab CI (optional)
 ├── Dockerfile           # Docker configuration (optional)
@@ -137,7 +134,7 @@ my_project/
 
 ## MLOps Features
 
-### DVC Integration
+### DVC Integration (To be added)
 ```bash
 # Initialize DVC with remote storage
 make dvc-init --remote-type=s3 --remote-url=s3://your-bucket
@@ -155,10 +152,16 @@ make exp-compare exp_ids=exp1_id,exp2_id
 # Start Ollama server
 make ollama-start
 
-# Train model
+# Pull model
+make ollama-pull
+
+# Run example
+make ollama-run
+
+# Train model (To be added)
 make ollama-train model=llama2
 
-# Evaluate model
+# Evaluate model (To be added)
 make ollama-evaluate
 ```
 
@@ -167,19 +170,20 @@ make ollama-evaluate
 ### Initial Setup
 ```bash
 # Create new project
-create-genai-project -n my_project -d -o
+bash create_genai_project.sh -n my_project -d -o -m llama2
 
 # Navigate to project
 cd my_project
 
-# Initialize git
-git init
-
 # Install dependencies
-make install
+poetry install
 
 # Setup pre-commit hooks
 make setup-pre-commit
+
+# If using Ollama:
+make ollama-start        # In terminal 1
+make ollama-pull         # In terminal 2
 ```
 
 ### Common Tasks
@@ -196,31 +200,62 @@ make lint
 # Clean build artifacts
 make clean
 
-# Build documentation
+# Build documentation (To be added)
 make docs
 ```
 
 ## Docker Support
 
+The project includes both development and production Docker configurations.
+
 ### Development Environment
 ```bash
-# Start development environment
-docker-compose up -d
+# Build development image
+make docker-build
 
-# Run commands in container
-docker-compose exec app make test
+# Start development environment
+make docker-run
+
+# Run tests in container
+make docker-test
+
+# Clean up containers and volumes
+make docker-clean
 ```
 
-### Production Build
-```bash
-# Build production image
-docker build -t my_project:latest .
+Features:
+- Live code reloading with volume mounts
+- Development dependencies included
+- Remote debugging support (port 5678)
+- Poetry cache persistence
+- Ollama integration (if enabled)
 
-# Run container
-docker run -p 8000:8000 my_project:latest
+### Production Environment
+The production setup provides a minimal container with only runtime dependencies.
+
+Configuration:
+- Base image: python:{version}-slim
+- Poetry for dependency management
+- Production-only dependencies
+- Health checks configured
+- Port 8000 exposed
+
+Files:
+- `Dockerfile` - Production configuration
+- `Dockerfile.dev` - Development configuration
+- `docker-compose.yml` - Production services
+- `docker-compose.dev.yml` - Development services
+- `.dockerignore` - Optimized context loading
+- `scripts/docker/` - Helper scripts for Docker operations
+
+Docker-related make commands:
+```bash
+make docker-build      # Build both development and production images
+make docker-run        # Start development environment
+make docker-test       # Run tests in development container
+make docker-clean      # Clean up containers and volumes
 ```
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
